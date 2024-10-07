@@ -1,0 +1,1081 @@
+{
+	"info": {
+		"_postman_id": "517a2945-5ca2-4e02-bc0c-9e795ac57ffc",
+		"name": "apiContatoSeguro",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "24635793"
+	},
+	"item": [
+		{
+			"name": "usuario",
+			"item": [
+				{
+					"name": "deleteUser",
+					"item": [
+						{
+							"name": "deleteUserFail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Given: A API de deleção de usuários está disponível\r",
+											"pm.test(\"Given: A API de deleção de usuários está disponível\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"// When: Eu faço uma requisição DELETE para \"/api/user/0/delete\"\r",
+											"pm.test(\"When: Eu faço uma requisição DELETE para '/api/user/0/delete'\", function () {\r",
+											"    pm.expect(pm.request.method).to.eql(\"DELETE\");\r",
+											"});\r",
+											"\r",
+											"// Then: A resposta deve retornar o código de status 400\r",
+											"pm.test(\"Then: A resposta deve retornar o código de status 400\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"// And: Deve retornar a mensagem de erro \"Invalid user ID!\"\r",
+											"pm.test(\"And: Deve retornar a mensagem de erro 'Invalid user ID!'\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"invalid data!\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8400/api/user/0/delete"
+							},
+							"response": []
+						},
+						{
+							"name": "deleteUserFail404",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Given: A API de deleção de usuários está disponível\r",
+											"pm.test(\"Given: A API de deleção de usuários está disponível\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"// When: Eu faço uma requisição DELETE para \"/api/user/500/delete\"\r",
+											"pm.test(\"When: Eu faço uma requisição DELETE para '/api/user/500/delete'\", function () {\r",
+											"    pm.expect(pm.request.method).to.eql(\"DELETE\");\r",
+											"});\r",
+											"\r",
+											"// Then: A resposta deve retornar o código de status 400\r",
+											"pm.test(\"Then: A resposta deve retornar o código de status 404\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"// And: Deve retornar a mensagem de erro \"Invalid user ID!\"\r",
+											"pm.test(\"And: Deve retornar a mensagem de erro 'Invalid user ID!'\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"unable to delete data!\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8400/api/user/500/delete"
+							},
+							"response": []
+						},
+						{
+							"name": "deleteUserSucess",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Given: A API de deleção de usuários está disponível\r",
+											"pm.test(\"Given: A API de deleção de usuários está disponível\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// And: O usuário com ID \"1\" existe\r",
+											"pm.test(\"And: O usuário com ID '120' existe\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(200); // Confirme que o usuário existe\r",
+											"});\r",
+											"\r",
+											"// When: Eu faço uma requisição DELETE para \"/api/user/1/delete\"\r",
+											"pm.test(\"When: Eu faço uma requisição DELETE para '/api/user/120/delete'\", function () {\r",
+											"    pm.expect(pm.request.method).to.eql(\"DELETE\");\r",
+											"});\r",
+											"\r",
+											"// Then: A resposta deve retornar o código de status 200\r",
+											"pm.test(\"Then: A resposta deve retornar o código de status 200\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// And: Deve retornar a mensagem de confirmação de deleção\r",
+											"pm.test(\"And: Deve retornar a mensagem de confirmação de deleção\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"data deleted successfully!\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8400/api/user/120/delete"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "updateUserSucess",
+					"item": [
+						{
+							"name": "updateUserSucess",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Given: A API de atualização de usuários está disponível\r",
+											"pm.test(\"Given: A API de atualização de usuários está disponível\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"// When: Eu faço uma requisição PATCH para \"/api/user/120/update\" com os dados\r",
+											"pm.test(\"When: Eu faço uma requisição PATCH para '/api/user/120/update'\", function () {\r",
+											"    pm.expect(pm.request.method).to.eql(\"PATCH\");\r",
+											"});\r",
+											"\r",
+											"// Then: A resposta deve retornar o código de status 200\r",
+											"pm.test(\"Then: A resposta deve retornar o código de status 200\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(200);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"João Silva\",\r\n    \"email\": \"joao@exemplo.com\",\r\n    \"companies\": [\"Compliance Total\"]\r\n}\r\n\r\n\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8400/api/user/120/update"
+							},
+							"response": []
+						},
+						{
+							"name": "updateUserFail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Given: A API de atualização de usuários está disponível\r",
+											"pm.test(\"Given: A API de atualização de usuários está disponível\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"// When: Eu faço uma requisição PATCH para \"/api/user/0/update\" com dados inválidos\r",
+											"pm.test(\"When: Eu faço uma requisição PATCH para '/api/user/0/update'\", function () {\r",
+											"    pm.expect(pm.request.method).to.eql(\"PATCH\");\r",
+											"});\r",
+											"\r",
+											"// Then: A resposta deve retornar o código de status 400\r",
+											"pm.test(\"Then: A resposta deve retornar o código de status 400\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"// And: Deve retornar a mensagem de erro \"invalid data!\"\r",
+											"pm.test(\"And: Deve retornar a mensagem de erro 'invalid data!'\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"invalid data!\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"João das cores\",\r\n    \"email\": \"joao@exemplo.com\",\r\n    \"companies\": [\"Compliance Total\"]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8400/api/user/0/update"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "getUserID",
+					"item": [
+						{
+							"name": "getUserIdSucess",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Given: A API de usuários está disponível\r",
+											"pm.test(\"Given: A API de usuários está disponível\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// When: Eu faço uma requisição GET para \"/api/user/{id}\"\r",
+											"pm.test(\"When: Eu faço uma requisição GET para '/api/user/{id}'\", function () {\r",
+											"    pm.expect(pm.request.method).to.eql(\"GET\");\r",
+											"});\r",
+											"\r",
+											"// Then: A resposta deve retornar o código de status 200\r",
+											"pm.test(\"Then: A resposta deve retornar o código de status 200\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// Then: Deve conter os dados do usuário\r",
+											"pm.test(\"Then: Deve conter os dados do usuário\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.be.an('object');\r",
+											"    pm.expect(jsonData).to.have.property('id_user');\r",
+											"    pm.expect(jsonData).to.have.property('name');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8400/api/user/120"
+							},
+							"response": []
+						},
+						{
+							"name": "getUserIdReturn400",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Given: A API de usuários está disponível\r",
+											"pm.test(\"Given: A API de usuários está disponível\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"// When: Eu faço uma requisição GET para \"/api/user/{id}\" com ID inválido\r",
+											"pm.test(\"When: Eu faço uma requisição GET para '/api/user/{id}'\", function () {\r",
+											"    pm.expect(pm.request.method).to.eql(\"GET\");\r",
+											"});\r",
+											"\r",
+											"// Then: A resposta deve retornar o código de status 400\r",
+											"pm.test(\"Then: A resposta deve retornar o código de status 400\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"// Then: Deve retornar a mensagem \"Usuário não encontrado\"\r",
+											"pm.test(\"Then: Deve retornar a mensagem 'invalid data!'\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"invalid data!\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8400/api/user/0"
+							},
+							"response": []
+						},
+						{
+							"name": "getUserIdReturn404",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Given: A API de usuários está disponível\r",
+											"pm.test(\"Given: A API de usuários está disponível\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"// When: Eu faço uma requisição GET para \"/api/user/{id}\" com ID inválido\r",
+											"pm.test(\"When: Eu faço uma requisição GET para '/api/user/{id}'\", function () {\r",
+											"    pm.expect(pm.request.method).to.eql(\"GET\");\r",
+											"});\r",
+											"\r",
+											"// Then: A resposta deve retornar o código de status 400\r",
+											"pm.test(\"Then: A resposta deve retornar o código de status 400\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"// Then: Deve retornar a mensagem \"Usuário não encontrado\"\r",
+											"pm.test(\"Then: Deve retornar a mensagem 'requested data not found!'\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"requested data not found!\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8400/api/user/10000000000"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PostCreateUser",
+					"item": [
+						{
+							"name": "createUserFail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Given: A API de criação de usuários está disponível\r",
+											"pm.test(\"Given: A API de criação de usuários está disponível\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"// When: Eu faço uma requisição POST para \"/api/user/create\" com dados inválidos\r",
+											"pm.test(\"When: Eu faço uma requisição POST para '/api/user/create'\", function () {\r",
+											"    pm.expect(pm.request.method).to.eql(\"POST\");\r",
+											"});\r",
+											"\r",
+											"// Then: A resposta deve retornar o código de status 400\r",
+											"pm.test(\"Then: A resposta deve retornar o código de status 400\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"// Then: Deve retornar a mensagem de erro \"Dados inválidos\"\r",
+											"pm.test(\"Then: Deve retornar a mensagem de erro 'invalid data!'\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"invalid data!\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"João Silva\",\r\n    \"e-mail\": \"joao@exemplo.com\",\r\n    \"companies\": [\"Compliance Total\"]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8400/api/user/create"
+							},
+							"response": []
+						},
+						{
+							"name": "createUserSucess",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Given: A API de criação de usuários está disponível\r",
+											"pm.test(\"Given: A API de criação de usuários está disponível\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"// When: Eu faço uma requisição POST para \"/api/user/create\"\r",
+											"pm.test(\"When: Eu faço uma requisição POST para '/api/user/create'\", function () {\r",
+											"    pm.expect(pm.request.method).to.eql(\"POST\");\r",
+											"});\r",
+											"\r",
+											"// Then: A resposta deve retornar o código de status 201\r",
+											"pm.test(\"Then: A resposta deve retornar o código de status 201\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"// Then: Deve conter os dados do usuário criado\r",
+											"pm.test(\"Then: Deve conter os dados do usuário criado\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.be.an('object');\r",
+											"    pm.expect(jsonData).to.have.property('name');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"João Silva\",\r\n    \"email\": \"joao@exemplo.com\",\r\n    \"companies\": [\"Compliance Total\"]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8400/api/user/create"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "GetallUser",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Given: A API de usuários está disponível\r",
+											"pm.test(\"Given: A API de usuários está disponível\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// When: Eu faço uma requisição GET para \"/api/user\"\r",
+											"pm.test(\"When: Eu faço uma requisição GET para '/api/user'\", function () {\r",
+											"    pm.expect(pm.request.method).to.eql(\"GET\");\r",
+											"});\r",
+											"\r",
+											"// Then: A resposta deve retornar o código de status 200\r",
+											"pm.test(\"Then: A resposta deve retornar o código de status 200\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8400/api/user"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "companies",
+			"item": [
+				{
+					"name": "getAllCompanies",
+					"item": [
+						{
+							"name": "companies",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Given: A API de empresas está disponível\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"When: Eu faço uma requisição GET para '/api/company'\", function () {\r",
+											"    pm.expect(pm.request.method).to.eql(\"GET\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Then: A resposta deve retornar o código de status 200\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"And: Deve retornar uma lista de empresas\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.be.an(\"array\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8400/api/company"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "getCompaniesid",
+					"item": [
+						{
+							"name": "companiesIdSucess",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Given: A API de empresas está disponível\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"When: Eu faço uma requisição GET para '/api/company/1'\", function () {\r",
+											"    pm.expect(pm.request.method).to.eql(\"GET\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Then: A resposta deve retornar o código de status 200\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"And: Deve retornar os dados da empresa\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"name\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8400/api/company/1"
+							},
+							"response": []
+						},
+						{
+							"name": "companiesidFail400",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Given: A API de empresas está disponível\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"When: Eu faço uma requisição GET para '/api/company/0'\", function () {\r",
+											"    pm.expect(pm.request.method).to.eql(\"GET\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Then: A resposta deve retornar o código de status 400\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"And: A mensagem de erro 'Invalid company ID!' deve ser retornada\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"invalid data!\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8400/api/company/0"
+							},
+							"response": []
+						},
+						{
+							"name": "companiesidFail404",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Given: A API de empresas está disponível\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"When: Eu faço uma requisição GET para '/api/company/1000'\", function () {\r",
+											"    pm.expect(pm.request.method).to.eql(\"GET\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Then: A resposta deve retornar o código de status 400\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"And: A mensagem de erro 'requested data not found!' deve ser retornada\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"requested data not found!\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8400/api/company/1000"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "createCompanies",
+					"item": [
+						{
+							"name": "createCompaniesSucess",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Given: A API de criação de empresas está disponível\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"When: Eu faço uma requisição POST para '/api/company/create'\", function () {\r",
+											"    pm.expect(pm.request.method).to.eql(\"POST\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Then: A resposta deve retornar o código de status 201\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(201);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Nome da Empresa\",\r\n    \"cnpj\": \"12.345.678/0001-90\",\r\n    \"adress\": {\r\n        \"cep\": \"12345-678\",\r\n        \"country\": \"Brasil\",\r\n        \"state\": \"SP\",\r\n        \"city\": \"São Paulo\",\r\n        \"street\": \"Rua Exemplo\",\r\n        \"number\": \"123\",\r\n        \"district\": \"Centro\"\r\n    }\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8400/api/company/create"
+							},
+							"response": []
+						},
+						{
+							"name": "createCompaniesFail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Given: A API de criação de empresas está disponível\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"When: Eu faço uma requisição POST para '/api/company/create'\", function () {\r",
+											"    pm.expect(pm.request.method).to.eql(\"POST\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Then: A resposta deve retornar o código de status 400\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(400);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Nome da Empresa\",\r\n    \"cnpj\": \"12.345.678/0001-90\",\r\n    \"adress\": {\r\n        \"cep\": \"12345-678\",\r\n        \"country\": \"Brasil\",\r\n        \"state\": \"SP\",\r\n        \"city\": \"São Paulo\",\r\n        \"street_location\": \"Rua Exemplo\",\r\n        \"number\": \"123\",\r\n        \"district\": \"Centro\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8400/api/company/create"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "updateCompanies",
+					"item": [
+						{
+							"name": "updateCompaniesSucess",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Given: A API de ediçao de empresas está disponível\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"When: Eu faço uma requisição POST para '/api/company/1/update'\", function () {\r",
+											"    pm.expect(pm.request.method).to.eql(\"PATCH\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Then: A resposta deve retornar o código de status 201\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(200);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Nome \",\r\n    \"cnpj\": \"12.345.678/0001-90\",\r\n    \"adress\": {\r\n        \"cep\": \"12345-678\",\r\n        \"country\": \"Brasil\",\r\n        \"state\": \"SP\",\r\n        \"city\": \"São Paulo\",\r\n        \"street\": \"Rua Exemplo\",\r\n        \"number\": \"123\",\r\n        \"district\": \"Centro\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8400/api/company/1/update"
+							},
+							"response": []
+						},
+						{
+							"name": "updateCompaniesFail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Given: A API de ediçao de empresas está disponível\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"When: Eu faço uma requisição POST para '/api/company/0/update'\", function () {\r",
+											"    pm.expect(pm.request.method).to.eql(\"PATCH\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Then: A resposta deve retornar o código de status 201\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"And: Deve retornar a mensagem de erro 'invalid data!'\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"invalid data!\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Nome \",\r\n    \"cnpj\": \"12.345.678/0001-90\",\r\n    \"adress\": {\r\n        \"cep\": \"12345-678\",\r\n        \"country\": \"Brasil\",\r\n        \"state\": \"SP\",\r\n        \"city\": \"São Paulo\",\r\n        \"street\": \"Rua Exemplo\",\r\n        \"number\": \"123\",\r\n        \"district\": \"Centro\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8400/api/company/0/update"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "deleteCompanies",
+					"item": [
+						{
+							"name": "deletecompaniesSucess",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Given: A API de deleção de empresas está disponível\r",
+											"pm.test(\"Given: A API de deleção de empresas está disponível\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// When: Eu faço uma requisição DELETE para '/api/company/1/delete'\r",
+											"pm.test(\"When: Eu faço uma requisição DELETE para '/api/company/1/delete'\", function () {\r",
+											"    pm.expect(pm.request.method).to.eql(\"DELETE\");\r",
+											"});\r",
+											"\r",
+											"// Then: A resposta deve retornar o código de status 200\r",
+											"pm.test(\"Then: A resposta deve retornar o código de status 200\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// And: Deve retornar a mensagem de confirmação de deleção\r",
+											"pm.test(\"And: Deve retornar a mensagem de confirmação de deleção\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"data deleted successfully!\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8400/api/company/1/delete"
+							},
+							"response": []
+						},
+						{
+							"name": "deletecompaniesFail400",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Given: A API de deleção de empresas está disponível\r",
+											"pm.test(\"Given: A API de deleção de empresas está disponível\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"// When: Eu faço uma requisição DELETE para '/api/company/1/delete'\r",
+											"pm.test(\"When: Eu faço uma requisição DELETE para '/api/company/1/delete'\", function () {\r",
+											"    pm.expect(pm.request.method).to.eql(\"DELETE\");\r",
+											"});\r",
+											"\r",
+											"// Then: A resposta deve retornar o código de status 200\r",
+											"pm.test(\"Then: A resposta deve retornar o código de status 200\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"// And: Deve retornar a mensagem de confirmação de deleção\r",
+											"pm.test(\"And: Deve retornar a mensagem de error \", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"invalid data!\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8400/api/company/0/delete"
+							},
+							"response": []
+						},
+						{
+							"name": "deletecompaniesFail404",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Given: A API de deleção de empresas está disponível\r",
+											"pm.test(\"Given: A API de deleção de empresas está disponível\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"// When: Eu faço uma requisição DELETE para '/api/company/1/delete'\r",
+											"pm.test(\"When: Eu faço uma requisição DELETE para '/api/company/10000/delete'\", function () {\r",
+											"    pm.expect(pm.request.method).to.eql(\"DELETE\");\r",
+											"});\r",
+											"\r",
+											"// Then: A resposta deve retornar o código de status 200\r",
+											"pm.test(\"Then: A resposta deve retornar o código de status 200\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"// And: Deve retornar a mensagem de confirmação de deleção\r",
+											"pm.test(\"And: Deve retornar a mensagem de error \", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"unable to delete data!\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8400/api/company/10000/delete"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "homeRoute",
+			"item": [
+				{
+					"name": "Home Route",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//A API está disponível\r",
+									"pm.test(\"Given: A API está disponível\", function () {\r",
+									"    pm.expect(pm.response).to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Eu faço uma requisição GET para \"/\"\r",
+									"pm.test(\"When: Eu faço uma requisição GET para '/'\", function () {\r",
+									"    pm.expect(pm.request.method).to.eql(\"GET\");\r",
+									"});\r",
+									"\r",
+									" //A resposta deve retornar o código de status 200\r",
+									"pm.test(\"Then: A resposta deve retornar o código de status 200\", function () {\r",
+									"    pm.expect(pm.response).to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//A mensagem deve ser \"home\"\r",
+									"pm.test(\"Then: A mensagem deve ser 'home'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.msg).to.eql(\"home\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8400"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
